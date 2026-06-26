@@ -42,34 +42,33 @@ graph TD
 ```text
 tailoring/
 │
-├── tailoring/                  # Django project root configuration
-│   ├── tailoring/              # Inner project configuration files
-│   │   ├── settings.py         # Application settings (updated to load .env)
-│   │   ├── urls.py             # Root URL routing configuration
-│   │   └── wsgi.py / asgi.py   # WSGI/ASGI server entrypoints
-│   │
-│   ├── Admin/                  # Administrator App (Views, Templates, Models)
-│   ├── staff/                  # Staff/Tailor App (Views, Templates, Models)
-│   ├── user/                   # Customer App (Views, Templates, AI integration)
-│   │
-│   ├── Templates/              # HTML Templates (divided by Admin, Staff, User)
-│   ├── static/                 # Static Assets (CSS, client JS, generated images)
-│   ├── media/                  # Media directories containing customer/admin uploads
-│   │
-│   ├── manage.py               # Django administration utility
-│   └── db.sqlite3              # Database file (ignored in repository tracking)
+├── Admin/                  # Administrator app
+├── staff/                  # Staff/Tailor app
+├── user/                   # Customer app
 │
-├── .env.example                # Configuration example environment file
-├── .gitignore                  # Git exclusions configuration
-├── requirements.txt            # Python dependencies lists
-├── LICENSE                     # MIT License
-├── README.md                   # Project overview and main documentation
-├── INSTALLATION.md             # Step-by-step setup guides
-├── PROJECT_STRUCTURE.md        # Detailed codebase folder structure description
-├── CONTRIBUTING.md             # Contribution guidelines
-├── CHANGELOG.md                # Release version tracking
-└── CODE_OF_CONDUCT.md          # Community conduct standards
-```
+├── Templates/              # HTML templates
+├── static/                 # CSS, JS, images
+├── media/                  # Uploaded files (if used)
+│
+├── tailoring/              # Django project configuration
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   ├── asgi.py
+│   └── __init__.py
+│
+├── manage.py
+├── requirements.txt
+├── .env.example
+├── .gitignore
+│
+├── README.md
+├── INSTALLATION.md
+├── PROJECT_STRUCTURE.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+└── CODE_OF_CONDUCT.md
 
 ---
 
