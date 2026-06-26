@@ -158,5 +158,5 @@ tailoring/
 ---
 
 ## Authors
-* **Tailoring App Contributors** - Development & Architecture
+* Stina Solomon
 * Open-sourced under the [MIT License](file:///C:/Users/stina/OneDrive/Desktop/tailoring/LICENSE).
