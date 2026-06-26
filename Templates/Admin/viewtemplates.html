@@ -1,0 +1,50 @@
+{% extends 'Admin/adminhome.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4 page-title">Available Templates</h1>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Images</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for template in temp %}
+                <tr>
+                    <td>{{ template.item_name }}</td>
+                    <td>
+                        <div class="template-images">
+                            {% if template.image1 %}
+                                <img src="{{ template.image1.url }}" class="img-fluid" alt="Image 1" style="max-width: 100px;">
+                            {% endif %}
+                            {% if template.image2 %}
+                                <img src="{{ template.image2.url }}" class="img-fluid" alt="Image 2" style="max-width: 100px;">
+                            {% endif %}
+                            {% if template.image3 %}
+                                <img src="{{ template.image3.url }}" class="img-fluid" alt="Image 3" style="max-width: 100px;">
+                            {% endif %}
+                        </div>
+                    </td>
+                    
+                    <td>{{ template.description|truncatewords:10 }}</td>
+                    <td>${{ template.price }}</td>
+                    <td>
+                        <form action="{% url 'Admin:delete_item' template.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

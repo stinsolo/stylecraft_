@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Registration</title>
+</head>
+<body>
+    <h2>Admin Registration</h2>
+
+    <label for="email">Email</label>
+    <input type="text" id="email" placeholder="Enter email address">
+
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter password">
+
+    <button type="button" id="btn">Register</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+    document.getElementById("btn").addEventListener("click", function(e) {
+        e.preventDefault();
+
+        var email = $('#email').val();
+        var password = $('#password').val();
+
+        var emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+        if (!email) {
+            alert("Email field is empty");
+            return;
+        }
+
+        if (!emailRegex.test(email)) {
+            alert("Enter a valid email");
+            return;
+        }
+
+        if (!password) {
+            alert("Enter password");
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        formData.append('email', email);
+        formData.append('password', password);
+
+        // AJAX request
+        $.ajax({
+            url: '{% url "Admin:admin_reg" %}',  
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(data) {
+                console.log("Server Response:", data);
+                if (data.success == 1) {
+                    alert("Admin registered successfully");
+                    window.location.href = "{% url 'Admin:admin_home' %}";  
+                } else {
+                    alert(data.message);  
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + xhr.responseText);
+                alert("An unexpected error occurred");
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>

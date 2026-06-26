@@ -1,0 +1,208 @@
+{% extends 'Admin/adminhome.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="order-details-wrapper">
+            <h1 class="order-heading">Order Details: #{{ order.id }}</h1>
+
+            <div class="order-details">
+                <div class="order-info">
+                    <p><strong>Item Name:</strong> {{ order.item_name.item_name }}</p>
+                    <p><strong>Username:</strong> {{ order.username.username }}</p>
+                    <p><strong>Status:</strong>
+                        {% if order.status == 0 %}
+                            <span class="status placed">Order Placed</span>
+                        {% elif order.status == 1 %}
+                            <span class="status accepted">Accepted</span>
+                        {% elif order.status == 2 %}
+                            <span class="status payment-done">Payment Done</span>
+                        {% elif order.status == 3 %}
+                            <span class="status product-done">Product Done</span>
+                        {% elif order.status == 4 %}
+                            <span class="status shipped">Shipped</span>
+                        {% else %}
+                            <span class="status delivered">Delivered</span>
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="order-images">
+                    <p><strong>Images:</strong></p>
+                    <div class="image-gallery">
+                        <img src="{{ order.image1.url }}" alt="Image 1" class="order-image">
+                        <img src="{{ order.image2.url }}" alt="Image 2" class="order-image">
+                        <img src="{{ order.image3.url }}" alt="Image 3" class="order-image">
+                    </div>
+                </div>
+
+                <div class="order-measurements">
+                    <p><strong>Measurements:</strong></p>
+                    <ul>
+                        <li>Waist: {{ order.waist }} cm</li>
+                        <li>Hips: {{ order.hips }} cm</li>
+                        <li>Bust: {{ order.bust }} cm</li>
+                        <li>Chest Girth: {{ order.chestgirth }} cm</li>
+                        <li>Neck: {{ order.neck }} cm</li>
+                        <li>Shoulder: {{ order.shoulder }} cm</li>
+                        <li>Sleeve: {{ order.sleeve }} cm</li>
+                        <li>Bicep: {{ order.bicep }} cm</li>
+                        <li>Wrist: {{ order.wrist }} cm</li>
+                        <li>Back Waist Length: {{ order.back_waist_length }} cm</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="staff-assignment">
+                <h3>Assign Staff and Accept Order</h3>
+                <form action="{% url 'Admin:accept_order' order.id %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <br>
+                    <br>
+                    <label for="staff" class="staff-label">Rate of cloth:</label>
+                    <input type="text" name="rate" value="{{ o.rate }}" class="staff-select">
+                    <br>
+                    <br>
+                    <label for="staff" class="staff-label">Assign Staff:</label>
+                    <select name="staff" id="staff" class="staff-select">
+                        {% for staff in available_staff %}
+                            <option value="{{ staff.id }}">{{ staff.username }}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <br>
+                    <button type="submit" class="submit-btn">Accept Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .order-details-wrapper {
+            padding: 20px;
+            background: #f4f7fc;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .order-heading {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .order-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .order-info, .order-images, .order-measurements {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            width: 32%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-info p, .order-images p, .order-measurements p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .placed { background-color: #ffb400; }
+        .accepted { background-color: #34bfa3; }
+        .payment-done { background-color: #4e73df; }
+        .product-done { background-color: #e74a3b; }
+        .shipped { background-color: #6f42c1; }
+        .delivered { background-color: #20c997; }
+
+        .order-images {
+            text-align: center;
+        }
+
+        .image-gallery {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .order-image {
+            max-width: 150px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-measurements ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .order-measurements li {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .staff-assignment {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .staff-label {
+            font-size: 1.1rem;
+            margin-right: 10px;
+        }
+
+        .staff-select {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 250px;
+            margin-right: 20px;
+        }
+
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #1f7a8c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #166b75;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .order-details {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .order-info, .order-images, .order-measurements {
+                width: 100%;
+            }
+
+            .staff-select {
+                width: 100%;
+            }
+        }
+    </style>
+{% endblock content %}

@@ -1,0 +1,177 @@
+{% extends 'Admin/adminhome.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="title">Staff Registration</h1>
+        <form action="#" method="post" class="form-container">
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" placeholder="Enter Username" required class="input-field">
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" placeholder="Enter Email" required class="input-field">
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Enter Password" required class="input-field">
+            </div>
+            <div class="input-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required class="input-field">
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
+                    <option value="2">Other</option>
+                </select>
+            </div>
+            <button type="button" id="btn" class="submit-btn">Register</button>
+        </form>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('#btn').click(() => {
+            var username = $('#username').val();
+            var email = $('#email').val();
+            var password = $('#password').val();
+            var status = $('#gender').val();
+
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+            var data = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'username': username,
+                'email': email,
+                'password': password,
+                'gender': status
+            };
+
+            if (username === "") {
+                alert("Enter username ");
+                return;
+            }
+
+            if (email === "") {
+                alert("Enter email");
+                return;
+            }
+            if (!emailRegex.test(email)) {
+                alert("Enter a valid email");
+                return;
+            }
+
+            if (password === "") {
+                alert("Enter password ");
+                return;
+            }
+            else {
+                $.ajax({
+                    url: '{% url "Admin:staff_reg" %}',
+                    method: "POST",
+                    data: data,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success) {
+                            alert('Staff Registered successfully');
+                        } else {
+                            alert('Email already exists');
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+
+
+<style>
+    /* Global Styles */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+
+    /* Main container for the form */
+    .container {
+        width: 50%;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title of the page */
+    .title {
+        text-align: center;
+        font-size: 2rem;
+        color: #2a2d37;
+        margin-bottom: 20px;
+    }
+
+    /* Input Group Styles */
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group label {
+        display: block;
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 5px;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .input-field:focus {
+        border-color: #1f7a8c;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background-color: #1f7a8c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #166b75;
+    }
+
+    /* Footer Section */
+    .footer {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .footer a {
+        color: #1f7a8c;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock content %}

@@ -1,0 +1,206 @@
+{% extends 'Admin/adminhome.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="form-container">
+        <h1 class="form-heading">Upload Template</h1>
+        <form id="uploadForm" method="POST" enctype="multipart/form-data" class="upload-form">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <label for="item_name">Item Name:</label>
+                <input type="text" name="item_name" id="item_name" placeholder="Enter Item Name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="image1">Image 1:</label>
+                <input type="file" name="image1" id="image1" required>
+            </div>
+
+            <div class="input-group">
+                <label for="image2">Image 2 :</label>
+                <input type="file" name="image2" id="image2" >
+            </div>
+
+            <div class="input-group">
+                <label for="image3">Image 3 :</label>
+                <input type="file" name="image3" id="image3" >
+            </div>
+
+            <div class="input-group">
+                <label for="price">Price:</label>
+                <input type="number" name="price" id="price" placeholder="Enter Price" required>
+            </div>
+
+            <div class="input-group">
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" placeholder="Enter Description" rows="5" required></textarea>
+            </div>
+
+            <button type="button" class="submit-btn" id="btn">Upload Item</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function getCSRFToken() {
+            return document.querySelector('[name=csrfmiddlewaretoken]').value;
+        }
+    
+        document.getElementById("btn").addEventListener("click", function(e) {
+            e.preventDefault();
+    
+            var image1 = $('#image1')[0].files[0];
+            var image2 = $('#image2')[0].files[0];
+            var image3 = $('#image3')[0].files[0];
+            var price = $('#price').val();
+            var description = $('#description').val();
+            var item_name = $('#item_name').val();
+    
+            // Validation checks
+            if (!image1) {
+                alert("Image 1 field is required");
+                return;
+            }
+            if (!image2) {
+                alert("Image 2 field is required");
+                return;
+            }
+            if (!image3) {
+                alert("Image 3 field is required");
+                return;
+            }
+            if (!price) {
+                alert("Price field is required");
+                return;
+            }
+            if (!description) {
+                alert("Description field is required");
+                return;
+            }
+            if (!item_name) {
+                alert("Item Name field is required");
+                return;
+            }
+    
+            var formData = new FormData();
+            formData.append('csrfmiddlewaretoken', getCSRFToken());
+            formData.append('image1', image1);
+            formData.append('image2', image2);
+            formData.append('image3', image3);
+            formData.append('price', price);
+            formData.append('description', description);
+            formData.append('item_name', item_name);
+    
+            $.ajax({
+                url: '{% url "Admin:add_temp" %}',  
+                method: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success == 1) {
+                        alert("Item added successfully");
+                        location.reload();
+                    } else {
+                        alert(data.message || "Item could not be added. Please try again.");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + xhr.responseText);
+                    alert("An unexpected error occurred: " + xhr.responseText);
+                }
+            });
+        });
+    </script>
+    
+
+
+    <style>
+        /* Container for the form */
+        .form-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f4f7fc;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-heading {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .input-group input, .input-group textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #1f7a8c;
+            outline: none;
+        }
+
+        .submit-btn {
+            padding: 12px 20px;
+            background-color: #1f7a8c;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #166b75;
+        }
+
+        /* File input styling */
+        .input-group input[type="file"] {
+            padding: 5px;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .form-heading {
+                font-size: 1.8rem;
+            }
+
+            .input-group input, .input-group textarea, .submit-btn {
+                font-size: 1rem;
+            }
+        }
+    </style>
+{% endblock content %}

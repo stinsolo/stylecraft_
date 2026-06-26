@@ -1,0 +1,97 @@
+
+
+{% block content %}
+    
+    
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Tailoring Website</title>
+    <link rel="stylesheet" href="{% static "css/adminlogin.css" %}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Admin Login</h2>
+        <!-- CSRF token -->
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="email" name="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="input-group">
+            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+        </div>
+        <button type="button" id="btn">Login</button>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Tailoring Website</p>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        document.getElementById("btn").addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent default behavior (form submission)
+
+            // Get input values
+            var email = $('#email').val();
+            var password = $('#password').val();
+            
+            // Regex pattern for email validation
+            var emailregex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+            // Validating email
+            if (!email) {
+                alert("Email field is empty");
+                return;
+            }
+
+            if (!emailregex.test(email)) {
+                alert("Enter a valid email");
+                return;
+            }
+
+            // Validating password
+            if (!password) {
+                alert("Enter password");
+                return;
+            }
+
+            // Prepare form data
+            var formData = new FormData();
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            formData.append('email', email);
+            formData.append('password', password);
+
+            // AJAX request
+            $.ajax({
+                url: '{% url "Admin:admin_log" %}',  // Your Django URL name
+                method: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success == 1) {
+                        alert("Logged in as admin");
+                         window.location.href = "{% url 'Admin:admin_home' %}"; 
+                    } else {
+                        alert("Email or password is wrong");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error: " + xhr.responseText);
+                    alert("An unexpected error occurred");
+                }
+            });
+        });
+    </script>
+
+</body>
+{% endblock content %}

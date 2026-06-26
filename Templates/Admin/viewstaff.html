@@ -1,0 +1,120 @@
+{% extends 'Admin/adminhome.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container my-5">
+        <h1 class="mb-4 text-center text-primary">Staff List</h1>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered shadow-lg">
+                <thead class="thead-dark bg-dark text-white">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Position</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in staff %}
+                        <tr>
+                            <td>{{ member.id }}</td>
+                            <td>{{ member.username }}</td>
+                            <td>{{ member.email }}</td>
+                            <td>Tailor</td>
+                            <td>
+                                <!-- Example of action buttons: Edit and Delete -->
+                                <a href="{% url 'Admin:update_staff' member.id %}" class="btn btn-warning btn-sm me-2"><i class="fas fa-edit"></i> Edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<br>
+<br>
+<br><br>
+<br>
+<br><br>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+    <!-- Bootstrap JS (optional for interactive elements like modals, dropdowns, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f4f7fc;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .table-bordered {
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+        }
+
+        .table td {
+            text-align: center;
+        }
+
+        .btn {
+            border-radius: 20px;
+        }
+
+        .btn-warning, .btn-danger {
+            font-size: 14px;
+            padding: 8px 16px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-warning {
+            background-color: #f0ad4e;
+            border-color: #f0ad4e;
+        }
+
+        .btn-warning:hover {
+            background-color: #ec971f;
+            border-color: #d58512;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d9534f;
+        }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+            border-color: #ac2925;
+        }
+
+        .fas {
+            margin-right: 5px;
+        }
+    </style>
+{% endblock content %}

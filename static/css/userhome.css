@@ -1,0 +1,210 @@
+/* Resetting default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;  /* Ensure the body covers at least 100% of the viewport */
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Pinkish Theme */
+header {
+    background: #ff66b2;
+    color: #fff;
+    text-align: center;
+    padding: 50px 0;
+    position: relative;
+}
+
+/* Header Text Styling */
+header h1 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+/* Navigation Bar Styling */
+nav {
+    background-color: #ff66b2;
+    width: 100%;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;  /* Make navbar sticky */
+    top: 0;
+    left: 0;
+    z-index: 1000;  /* Ensure navbar stays on top of other content */
+}
+
+nav ul {
+    display: flex;
+    justify-content: flex-start;  /* Align items to the left */
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin-left: 20px;  /* Add margin to push it slightly from the left edge */
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #ff3385;
+}
+
+/* Logout Button in Header */
+.logout-btn {
+    background-color: #ff66b2;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.logout-btn:hover {
+    background-color: #ff3385;
+}
+
+/* Hero section styling */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffb3d9;
+    height: 50vh;
+    text-align: center;
+    padding: 20px;
+    flex-direction: column;
+}
+
+.hero h2 {
+    font-size: 30px;
+    color: #ff66b2;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 18px;
+    font-weight: 300;
+    color: #333;
+    max-width: 800px;
+    margin: 10px auto;
+}
+
+/* Search Bar */
+.search-bar {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.search-bar input[type="text"] {
+    padding: 10px;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Product Section - Grid Layout for Cards */
+.product-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+    gap: 30px; /* Increased gap between the cards */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px; /* Adjust this to control the overall max width */
+}
+
+.product {
+    background-color: #fff;
+    padding: 30px;  /* Increased padding for bigger cards */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;  /* Ensure consistent height for each card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 280px; /* Increased width of the cards */
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.product h3 {
+    color: #ff66b2;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.product p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.product button {
+    background-color: #ff66b2;
+    color: white;
+    border: none;
+    padding: 12px;  /* Increased button padding */
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product button:hover {
+    background-color: #ff3385;
+}
+
+/* Hover effect for cards */
+.product:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+footer {
+    background-color: #ff66b2;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+footer p {
+    font-size: 14px;
+}

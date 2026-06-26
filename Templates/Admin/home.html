@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Craft</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset some default styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            
+            display: flex;
+            background: url('media/bg.jpg') no-repeat center center/cover;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background-color: #f4f4f4;
+            color: #333;
+            height: 100vh;
+            justify-content: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 5em;
+            color: #323030;
+            margin-left: 40%;
+            margin-top: 10px;
+        }
+
+        .main-banner {
+            background-size: cover;
+            background-position: center;
+            margin: 20px 0;
+            width: 90%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-buttons {
+            display: flex;
+            margin-left: 40%;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .login-btn {
+            padding: 10px 15px;
+            background-color: #1f7a8c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #166b75;
+            transform: scale(1.05);
+        }
+        .about-us {
+        max-width: 600px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.334);
+        padding: 50px;
+        border-radius: 10px;
+        margin-top: 10px;
+        margin-left: 40%;
+        color: #333;
+    }
+
+    </style>
+</head>
+<body>
+    <h1>Style Craft</h1>
+    <div class="about-us">
+        <h2>About Us</h2>
+        <p>Style Craft is your ultimate fashion destination—where trends are born, and style meets creativity! Discover the latest looks, embrace timeless elegance, and express yourself with confidence. Join us and redefine fashion, one outfit at a time!</p>
+    </div>
+    <!-- Title -->
+  
+
+    <!-- Main Banner -->
+    {% block content %}
+  
+    {% endblock content %}
+
+    <!-- Login Buttons -->
+    <div class="login-buttons">
+        <a href="{% url 'User:userReg' %}">
+            <button class="login-btn">Sign Up</button>
+        </a>
+       
+        <a href="{% url 'User:user_login' %}">
+            <button class="login-btn">Login</button>
+        </a>
+    </div>
+
+</body>
+</html>

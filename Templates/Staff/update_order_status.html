@@ -1,0 +1,80 @@
+{% extends 'Staff/staffhome.html' %}
+{% block content %}
+    <h1>Order Details for Order #{{ order.id }}</h1>
+    
+    <table border="1">
+        <tr>
+            <th>Item</th>
+            <td>{{ order.item_name.item_name }}</td>
+        </tr>
+        <tr>
+            <th>Customer</th>
+            <td>{{ order.username.username }}</td>
+        </tr>
+        <tr>
+            <th>Waist</th>
+            <td>{{ order.waist }}</td>
+        </tr>
+        <tr>
+            <th>Hips</th>
+            <td>{{ order.hips }}</td>
+        </tr>
+        <tr>
+            <th>Bust</th>
+            <td>{{ order.bust }}</td>
+        </tr>
+        <tr>
+            <th>Length</th>
+            <td>{{ order.chestgirth }}</td>
+        </tr>
+        <tr>
+            <th>neck</th>
+            <td>{{ order.neck }}</td>
+        </tr>
+        <tr>
+            <th>shoulder</th>
+            <td>{{ order.shoulder }}</td>
+        </tr>
+        <tr>
+            <th>sleeve</th>
+            <td>{{ order.sleeve }}</td>
+        </tr>
+        <tr>
+            <th>bicep</th>
+            <td>{{ order.bicep }}</td>
+        </tr>
+        <tr>
+            <th>wrist</th>
+            <td>{{ order.wrist }}</td>
+        </tr>
+        <tr>
+            <th>back_waist_length</th>
+            <td>{{ order.back_waist_length }}</td>
+        </tr>
+        <tr>
+            <th>Images</th>
+            <td>
+                <img src="{{ order.image1.url }}" alt="Image 1" width="100px">
+                <img src="{{ order.image2.url }}" alt="Image 2" width="100px">
+                <img src="{{ order.image3.url }}" alt="Image 3" width="100px">
+            </td>
+        </tr>
+    </table>
+
+    <h3>Update Status</h3>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label for="status">New Status:</label>
+        <select name="status" id="status">
+            <option value="3" {% if order.status == 3 %}selected{% endif %}>Product Done</option>
+            <option value="4" {% if order.status == 4 %}selected{% endif %}>Product Shipped</option>
+        </select>
+        
+        
+        <button type="submit">Update Status</button>
+    </form>
+
+    <br>
+    <a href="{% url 'Staff:staff_home' %}">Back to Assigned Orders</a>
+    {% endblock content %}

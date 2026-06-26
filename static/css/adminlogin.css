@@ -1,0 +1,114 @@
+/* Reset some default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #333;
+}
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #4a4a4a;
+}
+
+/* Login Container */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #aaa;
+}
+
+button#btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button#btn:hover {
+    background-color: #0056b3;
+}
+
+button#btn:focus {
+    outline: none;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #777;
+}
+
+.footer p {
+    font-size: 14px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+    .login-container {
+        width: 90%;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    button#btn {
+        font-size: 16px;
+    }
+}

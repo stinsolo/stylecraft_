@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Home - Style Craft</title>
+    <link rel="stylesheet" href="{% static 'css/staffh1.css' %}">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h2>Style Craft</h2>
+            </div>
+            <ul>
+                <li><a href="{% url 'Staff:staff_home' %}">Home</a></li>
+                <li><a href="{% url 'Staff:user_logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Staff Dashboard -->
+    <section class="dashboard">
+        <h1>Welcome to the Staff Dashboard</h1>
+        {% block content %}
+        <p class="intro-text">Here you can manage orders, tasks, and view your profile.</p>
+        <div class="container">
+            <h1>Assigned Orders</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Order Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order_status in assigned_orders %}
+                        <tr>
+                            <td>{{ order_status.order.id }}</td>
+                            <td>{{ order_status.order.username.username }}</td>
+                            <td>
+                                {% if order_status.status == 2 %}
+                                    Pending
+                                {% elif order_status.status == 3 %}
+                                    Work Done
+                                {% elif order_status.status == 4 %}
+                                    Shipped
+                                {% else %}
+                                    Delivered
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'Staff:update_order_status' order_status.order.id %}">View & Update Status</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">No orders assigned</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endblock content %}
+    </section>
+<br>
+<br><br>
+<br>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 TailorPro. All rights reserved.</p>
+    </footer>
+</body>
+</html>

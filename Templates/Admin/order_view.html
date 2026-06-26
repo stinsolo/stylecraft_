@@ -1,0 +1,107 @@
+{% extends 'Admin/adminhome.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1>View Tailoring Orders</h1>
+        
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Item Name</th>
+                    <th>Username</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.item_name.item_name }}</td>
+                        <td>{{ order.username.username }}</td>
+                        <td>
+                            {% if order.status == 0 %}
+                                Order Placed
+                            {% elif order.status == 1 %}
+                                Accepted
+                            {% elif order.status == 2 %}
+                                Payment Done
+                            {% elif order.status == 3 %}
+                                Product Done
+                            {% elif order.status == 4 %}
+                                Shipped
+                            {% else %}
+                                Delivered
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'Admin:order_details' order.id %}" class="view-btn">View More</a>
+                            <form action="{% url 'Admin:update_order_status' order.id %}" method="POST" style="display:inline-block;">
+                                {% csrf_token %}
+                                <select name="status" class="status-select">
+                                    <option value="0" {% if order.status == 0 %}selected{% endif %}>Order Placed</option>
+                                    <option value="1" {% if order.status == 1 %}selected{% endif %}>Accepted</option>
+                                    <option value="2" {% if order.status == 2 %}selected{% endif %}>Payment Done</option>
+                                    <option value="3" {% if order.status == 3 %}selected{% endif %}>Product Done</option>
+                                    <option value="4" {% if order.status == 4 %}selected{% endif %}>Shipped</option>
+                                    <option value="5" {% if order.status == 5 %}selected{% endif %}>Delivered</option>
+                                </select>
+                                <button type="submit" class="update-btn">Update</button>
+                            </form>
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        /* Styling the table */
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .orders-table th, .orders-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .orders-table th {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        .orders-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .view-btn, .update-btn {
+            padding: 8px 15px;
+            background-color: #1f7a8c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .view-btn:hover, .update-btn:hover {
+            background-color: #166b75;
+        }
+
+        .status-select {
+            padding: 8px;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+    </style>
+{% endblock content %}
