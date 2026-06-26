@@ -9,63 +9,33 @@ This document outlines the organization of the codebase, the roles of various Dj
 ```text
 tailoring/
 │
-├── tailoring/                  # Main project directory
-│   │
-│   ├── tailoring/              # Inner project configuration files
-│   │   ├── __init__.py
-│   │   ├── asgi.py
-│   │   ├── settings.py         # Django settings, security & file dirs
-│   │   ├── urls.py             # Global URL dispatch config
-│   │   └── wsgi.py             # WSGI configuration
-│   │
-│   ├── Admin/                  # Admin functions and management
-│   │   ├── migrations/
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   ├── models.py           # Admin_login, Addi_staff, upload_templates models
-│   │   ├── urls.py             # Admin endpoints (/staff_reg/, /add_temp/, etc.)
-│   │   └── views.py            # Logic for templates upload, staff updates, assignments
-│   │
-│   ├── staff/                  # Tailor / Worker app
-│   │   ├── migrations/
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   ├── models.py           # Staff_reg model
-│   │   ├── urls.py             # Staff endpoints (/user_login, /staff_home)
-│   │   └── views.py            # Dashboards and order progression logic
-│   │
-│   ├── user/                   # Customer app
-│   │   ├── migrations/
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   ├── models.py           # User_Reg, Upload_details, Order_table, OrderStatus
-│   │   ├── urls.py             # Customer endpoints (/place_order, /generate_dress)
-│   │   └── views.py            # AI integration, measurement uploads, orders, payment
-│   │
-│   ├── Templates/              # HTML Templates directory
-│   │   ├── Admin/              # Admin pages (e.g. viewstaff.html, addtemplates.html)
-│   │   ├── Staff/              # Tailor pages (e.g. staffhome.html, update_order_status.html)
-│   │   └── User/               # Client pages (e.g. ai.html, userhome.html, order.html)
-│   │
-│   ├── static/                 # Static asset delivery directory
-│   │   ├── css/                # Client styles stylesheets
-│   │   ├── js/                 # Interactions Javascript files
-│   │   └── generated_images/   # Store generated AI PNG outputs
-│   │
-│   ├── media/                  # Media files root (stores uploaded designs)
-│   │   └── Uploads/            # Uploaded templates images folder
-│   │
-│   ├── manage.py               # Django manage script
-│   └── db.sqlite3              # Local SQLite Database file (excluded in .gitignore)
+├── Admin/                  # Administrator app
+├── staff/                  # Staff/Tailor app
+├── user/                   # Customer app
 │
-├── .env.example                # Example configuration template file
-├── .gitignore                  # Exclusion file for git commits
-├── requirements.txt            # Package list requirements
-├── LICENSE                     # Software license (MIT)
-├── README.md                   # Repository overview guide
-├── INSTALLATION.md             # Running and deploying documentation
-└── PROJECT_STRUCTURE.md        # Current architectural guide
-```
+├── Templates/              # HTML templates
+├── static/                 # CSS, JS, images
+├── media/                  # Uploaded files (if used)
+│
+├── tailoring/              # Django project configuration
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   ├── asgi.py
+│   └── __init__.py
+│
+├── manage.py
+├── requirements.txt
+├── .env.example
+├── .gitignore
+│
+├── README.md
+├── INSTALLATION.md
+├── PROJECT_STRUCTURE.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+└── CODE_OF_CONDUCT.md
 
 ---
 
